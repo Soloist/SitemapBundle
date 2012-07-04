@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {{ block('item') }}
+</urlset>
+
+{% block list %}
+    {% for item in item %}
+        {{ block('item') }}
+    {% endfor %}
+{% endblock %}
+
+{% block item %}
+    <url>
+      <loc>{{ item.generateUrl(true) }}</loc>
+      {% if item.updatedAt is not null %}<lastmod>{{ item.updatedAt.format('Y-m-d\\Th:i:sP') }}</lastmod>{% endif %}
+      {% if item.changeFrequency is not null %}<changefreq>{{ item.changeFrequency }}</changefreq>{% endif %}
+      {% if item.priority is not null %}<priority>{{ item.priority }}</priority>{% endif %}
+    </url>
+    {% if item | length > 0 %}
+        {{ block('list') }}
+    {% endif%}
+{% endblock %}

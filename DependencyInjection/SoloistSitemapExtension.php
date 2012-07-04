@@ -37,7 +37,7 @@ class SoloistSitemapExtension extends Extension
         foreach ($config as $id => $sitemapConfig) {
             $definition = new Definition(
                 $container->getParameter('soloist_sitemap.sitemap.class'),
-                array(new Reference('router'), new Reference('event_dispatcher'))
+                array(new Reference('router'), new Reference('event_dispatcher'), $sitemapConfig['routes'])
             );
 
             // Set the root parameters
@@ -46,7 +46,12 @@ class SoloistSitemapExtension extends Extension
                 ->addMethodCall('setTitle', array($sitemapConfig['root']['title']))
                 ->addMethodCall('setRoute', array($sitemapConfig['root']['route']))
                 ->addMethodCall('setParams', array($sitemapConfig['root']['params']))
+                ->addMethodCall('setChangeFrequency', array($sitemapConfig['root']['change_frequency']))
+                ->addMethodCall('setPriority', array($sitemapConfig['root']['priority']))
             ;
+            if (null !== $sitemapConfig['root']['updated_at']) {
+                $definition->addMethodCall('setUpdatedAt', array(new \DateTime($sitemapConfig['root']['updated_at'])));
+            }
 
             // Add the service to the container
             $container->setDefinition('soloist_sitemap.sitemap.'.$id, $definition);

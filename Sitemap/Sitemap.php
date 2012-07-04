@@ -24,15 +24,23 @@ class Sitemap extends Item
     private $id;
 
     /**
+     * An associative array of routes used to display the sitemap
+     *
+     * @var array
+     */
+    private $routes;
+
+    /**
      * Constructs the sitemap
      *
      * @param UrlGeneratorInterface $router
      * @param EventDispatcher $dispatcher
      */
-    public function __construct(UrlGeneratorInterface $router, EventDispatcher $dispatcher)
+    public function __construct(UrlGeneratorInterface $router, EventDispatcher $dispatcher, array $routes)
     {
         $this->router     = $router;
         $this->dispatcher = $dispatcher;
+        $this->routes     = $routes;
     }
 
     /**
@@ -62,5 +70,14 @@ class Sitemap extends Item
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param $format
+     * @return string
+     */
+    public function getSitemapRoute($format)
+    {
+        return $this->routes[$format];
     }
 }

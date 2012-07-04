@@ -9,4 +9,14 @@
         <default key="slug">default</default>
     </route>
 
+    <route id="soloist_sitemap_show_xml" pattern="/{slug}.xml">
+        <default key="_controller">SoloistSitemapBundle:Default:showXml</default>
+        <default key="slug">default</default>
+    </route>
+
+    <route id="soloist_sitemap_show_index_xml" pattern="/index/{slug}.xml">
+        <default key="_controller">SoloistSitemapBundle:Default:showXmlIndex</default>
+        <default key="slug">default</default>
+    </route>
+
 </routes>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for sitemap in index %}
+       <sitemap>
+          <loc>{{ url(sitemap.getSitemapRoute('xml'), {slug: sitemap.id}) }}</loc>
+          <lastmod>{{ date().format('Y-m-d\\Th:i:sP') }}</lastmod>
+       </sitemap>
+    {% endfor %}
+</sitemapindex>

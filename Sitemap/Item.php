@@ -53,6 +53,21 @@ class Item implements \IteratorAggregate, \Countable
     protected $params = array();
 
     /**
+     * @var string
+     */
+    protected $changeFrequency;
+
+    /**
+     * @var \DateTime
+     */
+    protected $updatedAt;
+
+    /**
+     * @var float
+     */
+    protected $priority;
+
+    /**
      * The router instance. Used to generate URLs with Route/Params
      *
      * @var UrlGeneratorInterface
@@ -248,5 +263,62 @@ class Item implements \IteratorAggregate, \Countable
     public function count()
     {
         return count($this->items);
+    }
+
+    /**
+     * @param string $changeFrequency
+     * @return Item
+     */
+    public function setChangeFrequency($changeFrequency)
+    {
+        $this->changeFrequency = $changeFrequency;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getChangeFrequency()
+    {
+        return $this->changeFrequency;
+    }
+
+    /**
+     * @param float $priority
+     * @return Item
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     * @return Item
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
