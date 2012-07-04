@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * This class represents a sitemap entry.
  * The root node must by represented by `Soloist\Bundle\SitemapBundle\Sitemap\Sitemap`
  */
-class Item implements \IteratorAggregate
+class Item implements \IteratorAggregate, \Countable
 {
     /**
      * Child items
@@ -197,15 +197,6 @@ class Item implements \IteratorAggregate
         return $this->items;
     }
 
-    /**
-     * Returns the iterator
-     *
-     * @return \ArrayIterator
-     */
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->items);
-    }
 
     /**
      * Sets the router
@@ -237,5 +228,25 @@ class Item implements \IteratorAggregate
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Returns the iterator
+     *
+     * @return \ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->items);
+    }
+
+    /**
+     * Returns the number of child items
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->items);
     }
 }

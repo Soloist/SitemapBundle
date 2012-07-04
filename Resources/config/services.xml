@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="soloist_sitemap.sitemap.class">Soloist\Bundle\SitemapBundle\Sitemap\Sitemap</parameter>
+        <parameter key="soloist_sitemap.index.class">Soloist\Bundle\SitemapBundle\Sitemap\Index</parameter>
     </parameters>
 
 </container>

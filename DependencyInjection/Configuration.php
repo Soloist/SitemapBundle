@@ -2,6 +2,7 @@
 
 namespace Soloist\Bundle\SitemapBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -18,26 +19,35 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('soloist_sitemap');
+        $rootNode = $treeBuilder->root('soloist_sitemap')->children();
 
-        $rootNode
-            ->children()
-                // Define a sitemap array, if there's not, we create a "default" sitemap
-                ->arrayNode('sitemaps')
-                    ->useAttributeAsKey('id')
-                    ->addDefaultChildrenIfNoneSet('default')
-                    ->prototype('array')
-                        ->children()
-                            // Sitemap root configuration, with default values
-                            ->arrayNode('root')
-                                ->addDefaultsIfNotSet()
-                                ->children()
-                                    ->scalarNode('title')->defaultValue('Homepage')->end()
-                                    ->scalarNode('route')->defaultValue('homepage')->end()
-                                    ->arrayNode('params')
-                                        ->useAttributeAsKey('param')
-                                        ->prototype('variable')->end()
-                                    ->end()
+        $this->addSitemapsNode($rootNode);
+        $this->addIndexesNode($rootNode);
+
+        return $treeBuilder;
+    }
+
+    /**
+     * @param NodeBuilder $root
+     */
+    private function addSitemapsNode(NodeBuilder $root)
+    {
+        $root
+            // Define a sitemap array, if there's not, we create a "default" sitemap
+            ->arrayNode('sitemaps')
+                ->useAttributeAsKey('id')
+                ->addDefaultChildrenIfNoneSet('default')
+                ->prototype('array')
+                    ->children()
+                        // Sitemap root configuration, with default values
+                        ->arrayNode('root')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('title')->defaultValue('Homepage')->end()
+                                ->scalarNode('route')->defaultValue('homepage')->end()
+                                ->arrayNode('params')
+                                    ->useAttributeAsKey('param')
+                                    ->prototype('variable')->end()
                                 ->end()
                             ->end()
                         ->end()
@@ -45,7 +55,26 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+    }
 
-        return $treeBuilder;
+    /**
+     * @param NodeBuilder $root
+     */
+    private function addIndexesNode(NodeBuilder $root)
+    {
+        $root
+            // Defines a indexes array
+            ->arrayNode('indexes')
+                ->useAttributeAsKey('id')
+                ->addDefaultChildrenIfNoneSet('default')
+                ->prototype('array')
+                    ->children()
+                        ->arrayNode('sitemaps')
+                            ->prototype('variable')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }

@@ -12,7 +12,7 @@
 {% block item %}
     <li>
         <a href="{{ item.generateUrl() }}">{{ item.title }}</a>
-        {% if item.items | length > 0 %}
+        {% if item | length > 0 %}
             {{ block('list') }}
         {% endif %}
     </li>
@@ -20,7 +20,7 @@
 
 {% block list %}
     <ul>
-        {% for item in item.items %}
+        {% for item in item %}
             {{ block('item') }}
         {% endfor %}
     </ul>
