@@ -12,6 +12,9 @@
 {% block item %}
     <li>
         <a href="{{ item.generateUrl() }}">{{ item.title }}</a>
+        {% if item.items | length > 0 %}
+            {{ block('list') }}
+        {% endif %}
     </li>
 {% endblock %}
 

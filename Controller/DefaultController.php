@@ -15,6 +15,8 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('The sitemap with the slug "'.$slug.'" does not exists.', $e);
         }
 
+        $sitemap->build();
+
         return $this->render('SoloistSitemapBundle:Default:show.html.twig', array('item' => $sitemap));
     }
 }
