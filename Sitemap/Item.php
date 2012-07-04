@@ -115,10 +115,13 @@ class Item implements \IteratorAggregate
 
     /**
      * @param array $params
+     * @return Item
      */
     public function setParams(array $params)
     {
         $this->params = $params;
+
+        return $this;
     }
 
     /**
@@ -131,10 +134,13 @@ class Item implements \IteratorAggregate
 
     /**
      * @param string $route
+     * @return Item
      */
     public function setRoute($route)
     {
         $this->route = $route;
+
+        return $this;
     }
 
     /**
@@ -147,10 +153,13 @@ class Item implements \IteratorAggregate
 
     /**
      * @param string $title
+     * @return Item
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -163,10 +172,13 @@ class Item implements \IteratorAggregate
 
     /**
      * @param string $url
+     * @return Item
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
+        return $this;
     }
 
     /**
@@ -199,18 +211,24 @@ class Item implements \IteratorAggregate
      * Sets the router
      *
      * @param UrlGeneratorInterface $router
+     * @return Item
      */
     public function setRouter(UrlGeneratorInterface $router)
     {
         $this->router = $router;
+
+        return $this;
     }
 
     /**
      * @param Item $parent
+     * @return Item
      */
     public function setParent(Item $parent)
     {
         $this->parent = $parent;
+
+        return $this;
     }
 
     /**
