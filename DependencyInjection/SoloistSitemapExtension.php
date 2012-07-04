@@ -35,6 +35,7 @@ class SoloistSitemapExtension extends Extension
             );
 
             // Set the root parameters
+            $definition->addMethodCall('setId', array($id));
             $definition->addMethodCall('setTitle', array($sitemapConfig['root']['title']));
             $definition->addMethodCall('setRoute', array($sitemapConfig['root']['route']));
             $definition->addMethodCall('setParams', array($sitemapConfig['root']['params']));
