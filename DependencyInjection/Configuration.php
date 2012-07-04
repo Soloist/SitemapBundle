@@ -20,9 +20,31 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('soloist_sitemap');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                // Define a sitemap array, if there's not, we create a "default" sitemap
+                ->arrayNode('sitemaps')
+                    ->useAttributeAsKey('id')
+                    ->addDefaultChildrenIfNoneSet('default')
+                    ->prototype('array')
+                        ->children()
+                            // Sitemap root configuration, with default values
+                            ->arrayNode('root')
+                                ->addDefaultsIfNotSet()
+                                ->children()
+                                    ->scalarNode('title')->defaultValue('Homepage')->end()
+                                    ->scalarNode('route')->defaultValue('homepage')->end()
+                                    ->arrayNode('params')
+                                        ->useAttributeAsKey('param')
+                                        ->prototype('variable')->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
