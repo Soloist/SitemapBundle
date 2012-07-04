@@ -2,9 +2,15 @@
 
 namespace Soloist\Bundle\SitemapBundle\Sitemap;
 
+use Soloist\Bundle\SitemapBundle\Event\BuildSitemapEvent;
+use Soloist\Bundle\SitemapBundle\SitemapEvents;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * This class represents a Sitemap.
+ * It's a composite of Soloist\Bundle\SitemapBundle\Sitemap\Item.
+ */
 class Sitemap extends Item
 {
     /**
@@ -13,7 +19,7 @@ class Sitemap extends Item
     private $dispatcher;
 
     /**
-     * @var the Sitemap identifier
+     * @var int the Sitemap identifier
      */
     private $id;
 
@@ -21,6 +27,7 @@ class Sitemap extends Item
      * Constructs the sitemap
      *
      * @param UrlGeneratorInterface $router
+     * @param EventDispatcher $dispatcher
      */
     public function __construct(UrlGeneratorInterface $router, EventDispatcher $dispatcher)
     {
@@ -29,7 +36,20 @@ class Sitemap extends Item
     }
 
     /**
-     * @param \Soloist\Bundle\SitemapBundle\Sitemap\the $id
+     * Trigger the build event.
+     * Listener should add there's stuff by calling the `add()` or `createChild()` method.
+     *
+     * @return Sitemap
+     */
+    public function build()
+    {
+        $this->dispatcher->dispatch(SitemapEvents::BUILD_SITEMAP, new BuildSitemapEvent($this));
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
      */
     public function setId($id)
     {
@@ -37,7 +57,7 @@ class Sitemap extends Item
     }
 
     /**
-     * @return \Soloist\Bundle\SitemapBundle\Sitemap\the
+     * @return int
      */
     public function getId()
     {

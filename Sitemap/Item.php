@@ -4,6 +4,10 @@ namespace Soloist\Bundle\SitemapBundle\Sitemap;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * This class represents a sitemap entry.
+ * The root node must by represented by `Soloist\Bundle\SitemapBundle\Sitemap\Sitemap`
+ */
 class Item implements \IteratorAggregate
 {
     /**
