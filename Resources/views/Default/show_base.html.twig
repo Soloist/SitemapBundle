@@ -1,0 +1,25 @@
+{% extends 'SoloistSitemapBundle:Default:base.html.twig' %}
+
+{% block title %}{% trans %}soloist_sitemap.show.title{% endtrans %}{% endblock %}
+
+{% block soloist_sitemap %}
+    <h1>{% trans %}soloist_sitemap.show.title{% endtrans %}</h1>
+    <ul>
+        {{ block('item') }}
+    </ul>
+{% endblock %}
+
+{% block item %}
+    <li>
+        <a href="{{ item.generateUrl() }}">{{ item.title }}</a>
+    </li>
+{% endblock %}
+
+{% block list %}
+    <ul>
+        {% for item in item.items %}
+            {{ block('item') }}
+        {% endfor %}
+    </ul>
+{% endblock %}
+
