@@ -34,7 +34,7 @@ class Sitemap extends Item
      * Constructs the sitemap
      *
      * @param UrlGeneratorInterface $router
-     * @param EventDispatcher $dispatcher
+     * @param EventDispatcher       $dispatcher
      */
     public function __construct(UrlGeneratorInterface $router, EventDispatcher $dispatcher, array $routes)
     {
